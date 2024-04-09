@@ -38,10 +38,26 @@ using namespace std;
 //единицы будет один, однако рисоваться будет сразу в нескольких частях
 //экрана
 class Sprite {
-public:
+protected:
     string picture;
     int x;
     int y;
+public:
+	string getPic() {
+		return picture;
+	}
+	int getX() {
+		return x;
+	}
+	int getY() {
+		return y;
+	}
+	void setX(int value) {
+		x = value;
+	}
+	void setY(int value) {
+		y = value;
+	}
 };
 
 
@@ -56,7 +72,7 @@ public:
 	void Show(Sprite* ref) 
 	{
 		sprite = ref;
-		printf("name: %s, speed: %d, force: %d\picture: %s, x: %d, y: %d\n\n", name.c_str(), speed, force, this->sprite->picture.c_str(), this->sprite->x, this->sprite->y);
+		printf("name: %s, speed: %d, force: %d\picture: %s, x: %d, y: %d\n\n", name.c_str(), speed, force, this->sprite->getPic().c_str(), this->sprite->getX(), this->sprite->getY());
 	}
 
 };
@@ -162,16 +178,20 @@ public:
 int main()
 {
 	Sprite sprite;
-	sprite.x = 7;
-	sprite.y = 8;
+	sprite.setX(7);
+	sprite.setY(8);
 
 	string names[5]{ "LightInfantry", "TransportCar", "HeavyGroundEquipment", "LightGroundEquipment", "Aviation" };
 	CharacterFactory* pCF = new CharacterFactory();
 
+	int x = sprite.getX();
+	int y = sprite.getY();
 	for (int i = 0; i < 5; i++)
 	{
-		sprite.x++;
-		sprite.y++;
+		x++;
+		y++;
+		sprite.setX(x);
+		sprite.setY(y);
 		MilitaryBase* base = pCF->GetCharacter(names[i]);
 		base->Show(&sprite);
 	}
